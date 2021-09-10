@@ -68,9 +68,6 @@ public class Cajero {
 
         }
     }
-    
- 
-    
     /**
      * Este metodo valida las credenciales ingresadas por el usuario, entonces
      * existen opciones.
@@ -118,7 +115,7 @@ public class Cajero {
         pantallaMenuPrincipal.definirDatoEntrada("Seleccione una opción: ", "Integer");
        return pantallaMenuPrincipal;
     }
-    private Integer construirListadoCuentas()
+    private Cuenta construirListadoCuentas()
     {
     	  List<String> listadoCuentasContenido = new ArrayList();
           listadoCuentasContenido.add(" Elija una sus cuentas:");
@@ -132,13 +129,14 @@ public class Cajero {
           pantallaListadoCuentas.setContenido(listadoCuentasContenido);
           List<Object> datosIntroducidos = pantallaListadoCuentas.desplegar(); // Retorna la cuenta que eligió
           Integer indiceCuenta = (Integer) datosIntroducidos.get(0);
-          return indiceCuenta;
+          Cuenta cuenta=cliente.getCuentas().get(indiceCuenta - 1);
+          return cuenta;
     }
     private void verSaldo() {
      
         //TODO validar que el indiceCuenta sea un numero entre 1 y el numero total de cuentas
         // La cuenta para mostrar el saldo
-        Cuenta cuenta = cliente.getCuentas().get(construirListadoCuentas() - 1);
+        Cuenta cuenta = construirListadoCuentas();
         Pantalla pantallaVerSaldo = new Pantalla("Ver saldo");
         List<String> contenidoVerSaldo = new ArrayList();
         contenidoVerSaldo.add("Cliente: " + cliente.getNombre());
@@ -151,7 +149,7 @@ public class Cajero {
     {
     	try
     	{
-    		Cuenta cuenta = cliente.getCuentas().get(construirListadoCuentas() - 1);
+    		Cuenta cuenta = construirListadoCuentas();
     		Pantalla pantallaRealizarRetiro=new Pantalla("Realizar retiro");
     		List<String> contenidoRetiro = new ArrayList();
     		contenidoRetiro.add("Saldo actual: "+cuenta.getSaldo());
@@ -173,7 +171,7 @@ public class Cajero {
     {
     	try
     	{
-	    	Cuenta cuenta = cliente.getCuentas().get(construirListadoCuentas() - 1);
+	    	Cuenta cuenta = construirListadoCuentas();
 	    	Pantalla pantallaRealizarDeposito = new Pantalla("Realizar deposito");
 	    	List<String> contenidoDeposito = new ArrayList();
 	    	contenidoDeposito.add("Saldo actual: "+cuenta.getSaldo());
